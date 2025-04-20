@@ -5,7 +5,6 @@ import cors from "cors"
 import path from "path"
 import authRoutes from "./routes/auth.route.js"
 import messageRoutes from "./routes/message.route.js"
-import { connect } from 'mongoose';
 import { connectDB } from './lib/db.js';
 import cookieParser from "cookie-parser"
 import { app,server } from './lib/socket.js'
@@ -24,31 +23,17 @@ app.use(cors({
 }
 ))
 
-app.use((req, res, next) => {
-    console.log("Incoming request:", req.method, req.url);
-    next();
-  });
 
 app.use("/api/auth",authRoutes)
 app.use("/api/messages",messageRoutes)
 
-// if(process.env.NODE_ENV === "production"){
-//     app.use(express.static(path.join(__dirname,"../frontend/dist")))
+if(process.env.NODE_ENV === "production"){
+    app.use(express.static(path.join(__dirname,"../frontend/dist")))
 
-//     app.get('/*',(req,res)=>{
-//         res.sendFile(path.join(__dirname,"../frontend","dist","index.html"))
-//     })
-// }
-
-// if (process.env.NODE_ENV === "production") {
-//     const frontendPath = path.join(__dirname, "../frontend/dist");
-    
-//     app.use(express.static(frontendPath));
-    
-//     app.get("*", (req, res) => {
-//         res.sendFile(path.resolve(frontendPath, "index.html"));
-//     });
-// }
+    app.get('/*',(req,res)=>{
+        res.sendFile(path.join(__dirname,"../frontend","dist","index.html"))
+    })
+}
 
 
 server.listen(PORT,()=>{
