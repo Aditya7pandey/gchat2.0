@@ -1,7 +1,7 @@
 import React from 'react'
 import {useAuthStore} from "../store/useAuthStore"
 import { Link } from "react-router-dom"
-import { MessageSquare, Settings, User, LogOut } from "lucide-react"
+import { MessageSquare, Settings, User, LogOut, BotMessageSquare } from "lucide-react"
 
 function Navbar() {
   const {logout,authUser} = useAuthStore();
@@ -28,8 +28,8 @@ function Navbar() {
               
               `}
             >
-              <Settings className="w-4 h-4" />
-              <span className="hidden sm:inline">Settings</span>
+              <BotMessageSquare className="w-4 h-4" />
+              <span className="hidden sm:inline">Chat with AI</span>
             </Link>
 
             {authUser && (
